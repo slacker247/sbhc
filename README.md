@@ -1,5 +1,4 @@
-# sbcw
-SmoothieBoard Configuration Wizard
+# SmoothieBoard Configuration Wizard
   -  Demo Video : http://youtu.be/NI9NCI0UJYs
   
 
