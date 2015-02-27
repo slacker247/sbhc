@@ -3,7 +3,7 @@
   
 # Overview
 
-The goal is to support through a GUI, all the functionality of the smoothie board.  This includes the 3-axis, 4-axis, and 5-axis boards. 
+The goal is to support all the functionality of the smoothie board, through a GUI.  This includes the 3-axis, 4-axis, and 5-axis boards. This software is akin to the apps that come with printers and scanners.  They are the in-between apps for the hardward, but still allow other apps (Word, Photoshop) to use the hardware.
   * Being able to move each axis incrementally using keyboard, mouse, or typed input. (arrow keys, buttons, or typing the number in), This includes using a user settable feed rate
   * Display the current position of all the axes
   * Display the current state of any connected limit switches
