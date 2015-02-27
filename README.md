@@ -1,4 +1,4 @@
-# SmoothieBoard Configuration Wizard
+# SmoothieBoard Host Controller
   -  Demo Video : http://youtu.be/NI9NCI0UJYs
   
 
