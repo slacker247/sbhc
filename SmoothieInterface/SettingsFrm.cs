@@ -36,31 +36,38 @@ namespace SmoothieInterface
                 {
                     String propValue = "";
                     propValue = cmd(String.Format("config-get {0}\r\n", props[prop]), true);
-                    bool propExists = !propValue.Contains("not in config");
-                    if (propExists)
+                    if (!String.IsNullOrEmpty(propValue))
                     {
-                        String[] tmp = propValue.Split(' ');
-                        propValue = tmp[tmp.Length - 1].Trim();
+                        bool propExists = !propValue.Contains("not in config");
+                        if (propExists)
+                        {
+                            String[] tmp = propValue.Split(' ');
+                            propValue = tmp[tmp.Length - 1].Trim();
+                        }
+                        if (propExists && !String.IsNullOrEmpty(propValue))
+                        {
+                            if (prop.PropertyType == typeof(String))
+                            {
+                                lSettings.set(props[prop], propValue);
+                            }
+                            else
+                            {
+                                float fValue = 0f;
+                                bool bValue = false;
+                                if (float.TryParse(propValue, out fValue))
+                                {
+                                    lSettings.set(props[prop], fValue);
+                                }
+                                else if (bool.TryParse(propValue, out bValue))
+                                {
+                                    lSettings.set(props[prop], bValue);
+                                }
+                            }
+                        }
                     }
-                    if(propExists && !String.IsNullOrEmpty(propValue))
+                    else
                     {
-                        if(prop.PropertyType == typeof(String))
-                        {
-                            lSettings.set(props[prop], propValue);
-                        }
-                        else
-                        {
-                            float fValue = 0f;
-                            bool bValue = false;
-                            if(float.TryParse(propValue, out fValue))
-                            {
-                                lSettings.set(props[prop], fValue);
-                            }
-                            else if(bool.TryParse(propValue, out bValue))
-                            {
-                                lSettings.set(props[prop], bValue);
-                            }
-                        }
+                        break;
                     }
                 }
             }

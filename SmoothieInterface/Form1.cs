@@ -114,7 +114,13 @@ namespace SmoothieInterface
             if (frm.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
                 // TODO : save settings
+                setStatus("Saving settings...");
                 //sendCmd("get");
+                setStatus("Saved settings.");
+            }
+            else
+            {
+                setStatus("Settings not saved.");
             }
         }
 
@@ -248,7 +254,15 @@ namespace SmoothieInterface
             {
                 openComPort();
                 String response = sendCmd("version\r\n", true);
-                setStatus(response);
+                if (String.IsNullOrEmpty(response))
+                {
+                    setStatus("Device not on com port.");
+                    closeComPort();
+                }
+                else
+                {
+                    setStatus(response);
+                }
             }
             btn_Connect.Enabled = true;
         }
