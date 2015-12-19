@@ -304,7 +304,7 @@ namespace SmoothieInterface
 
         }
 
-        protecte
+        
         private void btn_PlusX_Click(object sender, EventArgs e)
         {
             sendCmd(GCode.setRelativeMode() + Smoothieboard.END);
