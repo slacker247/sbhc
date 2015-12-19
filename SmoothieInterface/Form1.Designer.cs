@@ -45,7 +45,6 @@
             this.txb_SpindleSpeed = new System.Windows.Forms.TextBox();
             this.txb_ExtruderSpeed = new System.Windows.Forms.TextBox();
             this.txb_ExtruderTemp = new System.Windows.Forms.TextBox();
-            this.txb_FeedRate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -77,6 +76,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txb_SendCmd = new System.Windows.Forms.TextBox();
             this.btn_SendCmd = new System.Windows.Forms.Button();
+            this.txb_FeedRate = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -227,14 +227,6 @@
             this.txb_ExtruderTemp.Name = "txb_ExtruderTemp";
             this.txb_ExtruderTemp.Size = new System.Drawing.Size(100, 20);
             this.txb_ExtruderTemp.TabIndex = 12;
-            // 
-            // txb_FeedRate
-            // 
-            this.txb_FeedRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txb_FeedRate.Location = new System.Drawing.Point(280, 165);
-            this.txb_FeedRate.Name = "txb_FeedRate";
-            this.txb_FeedRate.Size = new System.Drawing.Size(100, 20);
-            this.txb_FeedRate.TabIndex = 13;
             // 
             // label4
             // 
@@ -436,6 +428,7 @@
             this.btn_MinusY.TabIndex = 31;
             this.btn_MinusY.Text = "-Y";
             this.btn_MinusY.UseVisualStyleBackColor = true;
+            this.btn_MinusY.Click += new System.EventHandler(this.btn_MinusY_Click);
             // 
             // btn_PlusX
             // 
@@ -445,6 +438,7 @@
             this.btn_PlusX.TabIndex = 32;
             this.btn_PlusX.Text = "+X";
             this.btn_PlusX.UseVisualStyleBackColor = true;
+            this.btn_PlusX.Click += new System.EventHandler(this.btn_PlusX_Click);
             // 
             // btn_MinusX
             // 
@@ -454,6 +448,7 @@
             this.btn_MinusX.TabIndex = 33;
             this.btn_MinusX.Text = "-X";
             this.btn_MinusX.UseVisualStyleBackColor = true;
+            this.btn_MinusX.Click += new System.EventHandler(this.btn_MinusX_Click);
             // 
             // btn_PlusY
             // 
@@ -463,6 +458,7 @@
             this.btn_PlusY.TabIndex = 34;
             this.btn_PlusY.Text = "+Y";
             this.btn_PlusY.UseVisualStyleBackColor = true;
+            this.btn_PlusY.Click += new System.EventHandler(this.btn_PlusY_Click);
             // 
             // btn_PlusZ
             // 
@@ -472,6 +468,7 @@
             this.btn_PlusZ.TabIndex = 35;
             this.btn_PlusZ.Text = "+Z";
             this.btn_PlusZ.UseVisualStyleBackColor = true;
+            this.btn_PlusZ.Click += new System.EventHandler(this.btn_PlusZ_Click);
             // 
             // btn_MinusZ
             // 
@@ -481,6 +478,7 @@
             this.btn_MinusZ.TabIndex = 36;
             this.btn_MinusZ.Text = "-Z";
             this.btn_MinusZ.UseVisualStyleBackColor = true;
+            this.btn_MinusZ.Click += new System.EventHandler(this.btn_MinusZ_Click);
             // 
             // cbx_Probe
             // 
@@ -563,6 +561,15 @@
             this.btn_SendCmd.Text = "Send";
             this.btn_SendCmd.UseVisualStyleBackColor = true;
             this.btn_SendCmd.Click += new System.EventHandler(this.btn_SendCmd_Click);
+            // 
+            // txb_FeedRate
+            // 
+            this.txb_FeedRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txb_FeedRate.Location = new System.Drawing.Point(280, 165);
+            this.txb_FeedRate.Name = "txb_FeedRate";
+            this.txb_FeedRate.Size = new System.Drawing.Size(100, 20);
+            this.txb_FeedRate.TabIndex = 13;
+            this.txb_FeedRate.TextChanged += new System.EventHandler(this.txb_FeedRate_TextChanged);
             // 
             // Form1
             // 

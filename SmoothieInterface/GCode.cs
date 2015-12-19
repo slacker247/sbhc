@@ -6,74 +6,104 @@ using System.Threading.Tasks;
 
 namespace SmoothieInterface
 {
+    /// <summary>
+    /// http://smoothieware.org/supported-g-codes
+    /// </summary>
     class GCode
     {
-        /**
-         *  http://smoothieware.org/supported-g-codes
-          G-Code	Description	Example
-          G0
-        * Move to the given coordinates. To the contrary of G1, if there is a tool
-        * it will most of the time be off during this kind of move. This is a
-        * "go to" move rather than a "do while going to" move. The F parameter
-        * defines speed and is remembered by subsequent commands ( specified in
-        * millimetres/minute ) (command is modal)
-          G0 X10 Y-5 F100
-         * @param x
-         * @param y
-         * @param z
-         * @param speed
-         * @return 
-        */
+        /// <summary>
+        /// G0
+        /// Move to the given coordinates. To the contrary of G1, if there is a tool
+        /// it will most of the time be off during this kind of move. This is a
+        /// "go to" move rather than a "do while going to" move. The F parameter
+        /// defines speed and is remembered by subsequent commands ( specified in
+        /// millimetres/minute ) (command is modal)
+        /// G0 X10 Y-5 F100
+        /// </summary>
+        /// <param name="x">x position</param>
+        /// <param name="y">y position</param>
+        /// <param name="z">z position</param>
+        /// <param name="speed">feed rate</param>
+        /// <returns></returns>
         public static String move(float x, float y, float z, int speed)
         {
             return String.Format("G0 X%.3f Y%.3f Z%.3f F%d", x, y, z, speed);
         }
 
-        /**
-         *
-         * @param axis = 2 letters, xy, yx, zx, xz, zy, yz, etc.
-         * @param pos1 = position for the first axis letter
-         * @param pos2 = position for the second axis letter
-         * @param speed
-         * @return
-         */
+        /// <summary>
+        /// Move to the given coordinates. To the contrary of G1, if there is a tool
+        /// it will most of the time be off during this kind of move. This is a
+        /// "go to" move rather than a "do while going to" move.
+        /// </summary>
+        /// <param name="axis">2 letters, xy, yx, zx, xz, zy, yz, etc.</param>
+        /// <param name="pos1">position for the first axis letter</param>
+        /// <param name="pos2">position for the second axis letter</param>
+        /// <param name="speed">feed rate</param>
+        /// <returns></returns>
         public static String move2d(String axis, float pos1, float pos2, int speed)
         {
             char a1 = Char.ToUpper(axis[0]);
             char a2 = Char.ToUpper(axis[1]);
             return String.Format("G0 %s%.3f %s%.3f F%d", a1, pos1, a2, pos2, speed);
         }
+
+        /// <summary>
+        /// Move to the given coordinates. To the contrary of G1, if there is a tool
+        /// it will most of the time be off during this kind of move. This is a
+        /// "go to" move rather than a "do while going to" move.
+        /// </summary>
+        /// <param name="axis">a letter representing x, y, or z axis</param>
+        /// <param name="pos">position for the given axis letter</param>
+        /// <param name="speed">feed rate</param>
+        /// <returns></returns>
         public static String move1d(char axis, float pos, int speed)
         {
             axis = Char.ToUpper(axis);
             return String.Format("G0 %s%.3f F%d", axis, pos, speed);
         }
 
-        /**
-          G1
-        * Move to the given coordinates, see above for difference with G0. Takes the
-        * same F parameter as G0. (command is modal)
-          G1 X20 Y-2.3 F200
-        */
+        /// <summary>
+        /// G1
+        /// Move to the given coordinates. Takes the
+        /// same F parameter as G0.
+        /// </summary>
+        /// <param name="x">x position</param>
+        /// <param name="y">y position</param>
+        /// <param name="z">z position</param>
+        /// <param name="speed">feed rate</param>
+        /// <returns></returns>
         public static String absMove(float x, float y, float z, int speed)
         {
             return String.Format("G1 X%.3f Y%.3f Z%.3f F%d", x, y, z, speed);
         }
 
-        /**
-         *
-         * @param axis = 2 letters, xy, yx, zx, xz, zy, yz, etc.
-         * @param pos1 = position for the first axis letter
-         * @param pos2 = position for the second axis letter
-         * @param speed
-         * @return
-         */
+        /// <summary>
+        /// G1
+        /// Move to the given coordinates. Takes the
+        /// same F parameter as G0.
+        /// G1 X20 Y-2.3 F200
+        /// </summary>
+        /// <param name="axis">2 letters, xy, yx, zx, xz, zy, yz, etc.</param>
+        /// <param name="pos1">position for the first axis letter</param>
+        /// <param name="pos2">position for the second axis letter</param>
+        /// <param name="speed">feed rate</param>
+        /// <returns></returns>
         public static String absMove2d(String axis, float pos1, float pos2, int speed)
         {
             char a1 = Char.ToUpper(axis[0]);
             char a2 = Char.ToUpper(axis[1]);
             return String.Format("G1 %s%.3f %s%.3f F%d", a1, pos1, a2, pos2, speed);
         }
+
+        /// <summary>
+        /// G1
+        /// Move to the given coordinates. Takes the
+        /// same F parameter as G0.
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <param name="pos">position for the given axis letter</param>
+        /// <param name="speed">feed rate</param>
+        /// <returns></returns>
         public static String absMove1d(char axis, float pos, int speed)
         {
             axis = Char.ToUpper(axis);
@@ -95,21 +125,21 @@ namespace SmoothieInterface
           G4 P1000
         */
 
-        /**
-          G10
-        * Do firmware extruder retract
-          G10
-        */
+        /// <summary>
+        /// Do firmware extruder retract
+        /// G10
+        /// </summary>
+        /// <returns></returns>
         public static String extruderRetract()
         {
             return "G10";
         }
 
-        /**
-          G11
-        * Do firmware extruder un-retract
-          G11
-        */
+        /// <summary>
+        /// Do firmware extruder un-retract
+        /// G11
+        /// </summary>
+        /// <returns></returns>
         public static String extruderExtend()
         {
             return "G11";
@@ -129,39 +159,44 @@ namespace SmoothieInterface
           G19
         */
 
-        /**
-          G20
-        * Inch mode : passed coordinates will be considered as Inches, so internally
-        * translated to millimeters (command is modal)
-          G20
-        */
+        /// <summary>
+        /// passed coordinates will be considered as Inches
+        /// G20
+        /// </summary>
+        /// <returns></returns>
         public static String inchMode()
         {
             return "G20";
         }
 
-        /**
-          G21
-        * Millimeter mode ( default ) : passed coordinates will be considered as
-        * millimeters (command is modal)
-          G21
-        */
+        /// <summary>
+        /// Sets the device to millimeter mode.  All coordinates will be interpreted
+        /// as millimeters
+        /// G21
+        /// </summary>
+        /// <returns></returns>
         public static String millimeterMode()
         {
             return "G21";
         }
 
-        /** 
-          G30
-        * Simple Z probe at current XY, reports distance moved down until probe
-        * triggers, optional F parameter sets feedrate
-          G30 - G30 F100
-        */
+        /// <summary>
+        /// Probes down in the z direction at the current xy until probe triggers
+        /// or reaches zero at the current machines feed rate.
+        /// G30 - G30 F100
+        /// </summary>
+        /// <returns></returns>
         public static String zProbe()
         {
             return zProbe(-1);
         }
 
+        /// <summary>
+        /// Probes down in the z direction at the current xy until probe triggers
+        /// or reaches zero.
+        /// </summary>
+        /// <param name="speed">Feed Rate, -1 leaves off feed rate option</param>
+        /// <returns></returns>
         public static String zProbe(int speed)
         {
             String cmd = "G30";
@@ -179,17 +214,20 @@ namespace SmoothieInterface
           G32 - G32 R - G32 E - G32 EK - G32 I0.02
         */
 
-        /**
-          G28
-        * Home The given axis, or if no axis specified home all axis at the same
-        * time (edge)
-          G28
-        */
+        /// <summary>
+        /// home all axis at the same
+        /// </summary>
+        /// <returns></returns>
         public static String homeAxis()
         {
-            return homeAxis("");
+            return homeAxis("G28");
         }
 
+        /// <summary>
+        /// Home The given axis
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <returns></returns>
         public static String homeAxis(String axis)
         {
             String cmd = "G28";
@@ -198,23 +236,35 @@ namespace SmoothieInterface
             return cmd;
         }
 
-        /**
-          G90
-        * Absolute mode ( default ) : passed coordinates will be considered
-        * absolute ( relative to 0.0.0 ) (command is modal)
-          G90
-        * 
-          G91
-        * Relative mode : passed coordinates will be considered relative to the
-        * current point (command is modal)
-          G91
-        */
+        /// <summary>
+        /// Sets the device to Absolute position mode.
+        /// G90
+        /// </summary>
+        /// <returns></returns>
+        public static String setAbsoluteMode()
+        {
+            return "G90";
+        }
 
-        /**
-          G92
-        * Set current position to specified coordinates
-          G92 X0 Y0 Z0
-        */
+        /// <summary>
+        /// Sets the device to Relative position mode.
+        /// G91
+        /// </summary>
+        /// <returns></returns>
+        public static String setRelativeMode()
+        {
+            return "G91";
+        }
+
+        /// <summary>
+        /// Set current position to specified coordinates
+        /// G92
+        /// G92 X0 Y0 Z0
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
         public static String setCoords(float x, float y, float z)
         {
             String cmd = "G92 X%d Y%d Z%d";
@@ -234,9 +284,11 @@ namespace SmoothieInterface
             M92	Set axis steps per mm	M92 E200
          */
 
-        /*
-        *    M104	Set Extruder Temperature - S<temperature>	M104 S190
-         */
+        /// <summary>
+        /// M104	Set Extruder Temperature - S<temperature>	M104 S190
+        /// </summary>
+        /// <param name="temp"></param>
+        /// <returns></returns>
         public static String setExtruderTemp(int temp)
         {
             String cmd = "M104 S%d";
@@ -244,9 +296,10 @@ namespace SmoothieInterface
             return cmd;
         }
 
-        /*
-        *    M105	Read current temp	M105
-         */
+        /// <summary>
+        /// M105	Read current temp	M105
+        /// </summary>
+        /// <returns></returns>
         public static String readCurrentTemp()
         {
             String cmd = "M105";

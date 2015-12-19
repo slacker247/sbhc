@@ -6,16 +6,40 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SmoothieInterface
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, INotifyPropertyChanged
     {
         protected SerialComms.SerialComms m_ComPort = null;
         protected List<char> m_Received = new List<char>();
+
+        protected Dictionary<String, object> m_Properties = new Dictionary<String, object>();
+        protected int FeedRate
+        {
+            get
+            {
+                int val = 0;
+                object obj = null;
+                if(m_Properties.ContainsKey("FeedRate"))
+                    obj = m_Properties["FeedRate"];
+                if(obj != null)
+                {
+                    if (obj is int)
+                        val = (int)obj;
+                }
+                return val;
+            }
+            set
+            {
+                m_Properties["FeedRate"] = value;
+                propertyChanged("FeedRate");
+            }
+        }
 
         public void msgHandler(String msg)
         {
@@ -102,7 +126,6 @@ namespace SmoothieInterface
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void mi_EditSettings_Click(object sender, EventArgs e)
@@ -253,7 +276,7 @@ namespace SmoothieInterface
             else if(cmb_ComPorts.SelectedIndex > -1)
             {
                 openComPort();
-                String response = sendCmd("version\r\n", true);
+                String response = sendCmd(Smoothieboard.getVersion(), true);
                 if (String.IsNullOrEmpty(response))
                 {
                     setStatus("Device not on com port.");
@@ -274,6 +297,88 @@ namespace SmoothieInterface
             setStatus(response);
             setStatus("--end received");
             btn_SendCmd.Enabled = true;
+        }
+
+        protected void moveX(int amount)
+        {
+
+        }
+
+        protecte
+        private void btn_PlusX_Click(object sender, EventArgs e)
+        {
+            sendCmd(GCode.setRelativeMode() + Smoothieboard.END);
+            sendCmd(GCode.absMove1d('x', 1, FeedRate) + Smoothieboard.END);
+            updatePosition();
+        }
+
+        private void btn_MinusX_Click(object sender, EventArgs e)
+        {
+            sendCmd(GCode.setRelativeMode() + Smoothieboard.END);
+            sendCmd(GCode.absMove1d('x', -1, FeedRate) + Smoothieboard.END);
+            updatePosition();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void propertyChanged(String name)
+        {
+            if(PropertyChanged != null)
+            {
+                PropertyChangedEventArgs args = new PropertyChangedEventArgs(name);
+                PropertyChanged(this, args);
+            }
+        }
+
+        private void txb_FeedRate_TextChanged(object sender, EventArgs e)
+        {
+            int val = 0;
+            if (int.TryParse(txb_FeedRate.Text, out val))
+                FeedRate = val;
+        }
+
+        private void btn_PlusY_Click(object sender, EventArgs e)
+        {
+            sendCmd(GCode.setRelativeMode() + Smoothieboard.END);
+            sendCmd(GCode.absMove1d('y', 1, FeedRate) + Smoothieboard.END);
+            updatePosition();
+        }
+
+        private void btn_MinusY_Click(object sender, EventArgs e)
+        {
+            sendCmd(GCode.setRelativeMode() + Smoothieboard.END);
+            sendCmd(GCode.absMove1d('y', -1, FeedRate) + Smoothieboard.END);
+            updatePosition();
+        }
+
+        private void btn_PlusZ_Click(object sender, EventArgs e)
+        {
+            sendCmd(GCode.setRelativeMode() + Smoothieboard.END);
+            sendCmd(GCode.absMove1d('z', 1, FeedRate) + Smoothieboard.END);
+            updatePosition();
+        }
+
+        private void btn_MinusZ_Click(object sender, EventArgs e)
+        {
+            sendCmd(GCode.setRelativeMode() + Smoothieboard.END);
+            sendCmd(GCode.absMove1d('z', -1, FeedRate) + Smoothieboard.END);
+            updatePosition();
+        }
+
+        protected void updatePosition()
+        {
+            String pos = sendCmd(Smoothieboard.getPos());
+            Regex rx = new Regex("([0-9]+),([0-9]+),([0-9]+)");
+            Match mt = rx.Match(pos);
+            int index = 0;
+            String[] point = new String[3];
+            while(mt.Success)
+            {
+                point[index++] = mt.Value;
+                mt = mt.NextMatch();
+            }
+            txb_XPos.Text = point[0];
+            txb_YPos.Text = point[1];
+            txb_ZPos.Text = point[2];
         }
     }
 }

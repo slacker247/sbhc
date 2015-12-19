@@ -8,7 +8,7 @@ namespace SmoothieInterface
 {
     public class Smoothieboard
     {
-        protected const String END = "\r\n";
+        public const String END = "\r\n";
 
         public static String getCmd()
         {
